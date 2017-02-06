@@ -18,18 +18,23 @@ var state = {
         correct: 1}],
     score: 0,
     qIndicator : 0,
+    progTracker : [],
+    answered: false,
 
 }
 
 function displayQuestion(state){
   $('#splash').addClass("hidden");
   $('#main').removeClass("hidden");
-  var responses = state.questions[state.qIndicator].answers.map(function (answer){
-    return ('<li> <button>' + answer + '</button></li>');
+  var responses = state.questions[state.qIndicator].answers.map(function (answer, index){
+    return ('<li> <button id="answer'+ index +'" class="answerBtn ">'+ answer +'</button></li>');
   });
   $('#question-number').html(state.qIndicator+1);
   $('#question-text').html(state.questions[state.qIndicator].qText);
   $('#responses').html(responses.join(""));
+    if (state.answered){
+        $("#isCorrect").html(state.progTracker[state.qIndicator]); 
+    };
 };
 
 function eventHandlers(){
@@ -39,7 +44,15 @@ function eventHandlers(){
   $('#next-button').click(function(event){
       state.qIndicator += 1;
       displayQuestion(state);
-  })
+  });
+    $('#responses').on('click', '.answerBtn', function(event){
+        state.answered = true;
+        var correctAns = 'answer' + state.questions[state.qIndicator].correct
+//        console.log(correctAns);
+//        console.log($(this)[0].id);
+        state.progTracker.push(correctAns === $(this)[0].id);
+         $("#next-button").removeClass('disabled'); 
+    })  
 };
 
 
