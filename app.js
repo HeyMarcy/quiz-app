@@ -12,3 +12,12 @@ var state = {
     correctAnswers: [2,4,2,1,2], //Note that these are not by index at this point
     score: 0
 }
+
+
+var splashTemplate = '<h1>Financial Literacy Quiz</h1>' + 
+    '<h4> Terry and marcy have teamed up to test your financial literacy!</h4>'  +
+    '<button>Let\'s go!</button>'
+
+var quizTemplate = '<p>' +qIndicator + '</p>' + 
+                    '<h4>'+ currentQuestion + '</h4>' +
+                    '<ul>'
