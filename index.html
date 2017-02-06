@@ -8,10 +8,16 @@
 </head>
 
 <body>
-    <div id="main">
+    <div id="splash">
       <h1>Financial Literacy Quiz</h1>
       <h4>Terry and marcy have teamed up to test your financial literacy!</h4>
-      <button id="js-begin">Let's go!</button>
+      <button id="begin">Let's go!</button>
+    </div>
+    <div id="main" class="hidden">
+      <p>Question <span id="question-number"></span></p>
+      <h4 id="question-text"></h4>
+      <ul id="responses"></ul>
+      <button id="next-button"> NEXT </button>
     </div>
 
 

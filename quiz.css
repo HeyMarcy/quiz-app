@@ -1,8 +1,12 @@
-
+.hidden {
+  visibility: hidden;
+  height:0px;
+  width:0px;
+}
 
 #splash {
-    
+
 }
 #quiz {
-    
+
 }

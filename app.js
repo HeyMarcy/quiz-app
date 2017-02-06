@@ -22,20 +22,24 @@ var state = {
 }
 
 function displayQuestion(state){
+  $('#splash').addClass("hidden");
+  $('#main').removeClass("hidden");
   var responses = state.questions[state.qIndicator].answers.map(function (answer){
     return ('<li> <button>' + answer + '</button></li>');
   });
-  var quizTemplate = '<p>' + 'Question ' + (state.qIndicator+1) + '</p>' +
-                      '<h4>'+ state.questions[state.qIndicator].qText + '</h4>' +
-                      '<ul>' + responses.join("") + '</ul>' +
-                      '<button class="js-next-button"> NEXT </button>';
-  $('#main').html(quizTemplate);
+  $('#question-number').html(state.qIndicator+1);
+  $('#question-text').html(state.questions[state.qIndicator].qText);
+  $('#responses').html(responses.join(""));
 };
 
 function eventHandlers(){
-  $('#js-begin').click(function(event){
+  $('#begin').click(function(event){
       displayQuestion(state);
   });
+  $('#next-button').click(function(event){
+      state.qIndicator += 1;
+      displayQuestion(state);
+  })
 };
 
 
