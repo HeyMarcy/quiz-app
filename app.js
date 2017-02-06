@@ -17,19 +17,18 @@ var state = {
         answers: ["Job loss", "Medical bills", "Divorce", "Failure to stick to a budget"],
         correct: 1}],
     score: 0,
-    qIndicator : 1,
+    qIndicator : 0,
 
 }
 
 function displayQuestion(state){
-  var responses = []
-  state.questions[state.qIndicator].answers.forEach(function (answer){
-    responses.push('<li> <button>' + answer + '</button></li>')
+  var responses = state.questions[state.qIndicator].answers.map(function (answer){
+    return ('<li> <button>' + answer + '</button></li>');
   });
   var quizTemplate = '<p>' + 'Question ' + (state.qIndicator+1) + '</p>' +
                       '<h4>'+ state.questions[state.qIndicator].qText + '</h4>' +
-                      '<ul>' + responses + '</ul>' +
-                      '<button> NEXT </button>';
+                      '<ul>' + responses.join("") + '</ul>' +
+                      '<button class="js-next-button"> NEXT </button>';
   $('#main').html(quizTemplate);
 };
 
