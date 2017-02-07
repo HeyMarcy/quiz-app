@@ -54,8 +54,10 @@ function displayQuestion(state) {
 
 function displayTracker(state) {
     var trackerArr = state.questions.map(function (question, index) {
-        var token = index + 1;
-        return ('<li>' + token + '</li>');
+        var token = {true: '<i class="fa fa-check-circle fa-3" aria-hidden="true"></i>', 
+                     false: '<i class="fa fa-times-circle" aria-hidden="true"></i>', 
+                     undefined: index + 1};
+        return ('<li>' + token[state.progTracker[index]] + '</li>');
     });
     $('#tracker > ul').html(trackerArr.join(""));
 }

@@ -57,9 +57,28 @@ p {
 }
 
 i.fa {
-    font-size: 22px;
+    font-size: 33px;
+}
+
+i.fa-times-circle{
+    color:darkred;
+}
+i.fa-check-circle{
     color:#2E552C;
 }
+
+#tracker li {
+    display:inline-block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    margin: 0 22px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+    
+
 
 ul {
     list-style-type: none;
