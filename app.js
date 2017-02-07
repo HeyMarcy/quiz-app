@@ -41,7 +41,7 @@ function displayQuestion(state){
       $('#isCorrect').html("Incorrect");
     };
   };
-  console.log(state.progTracker);
+  //console.log(state.progTracker);
 };
 
 function eventHandlers(){
@@ -50,12 +50,16 @@ function eventHandlers(){
   });
   $('#next-button').click(function(event){
       state.qIndicator += 1;
-//We should add an if statement here to display the final page
-//  if state.questions[state.qIndicator] is undefined (after the last question has been answered)
+      //console.log(state.questions[state.qIndicator]);
+      if (state.questions[state.qIndicator] == undefined){
+        $('#main').addClass("hidden");
+        $('#end').removeClass("hidden");
+      } else {
 //Also need to toggle state.answered back to false before displaying the next question
       $("#next-button").prop('disabled', true);
       $('#isCorrect').html("");
       displayQuestion(state);
+    };
   });
   $('#responses').on('click', '.answerBtn', function(event){
     state.answered = true;
