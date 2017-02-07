@@ -29,8 +29,8 @@ var state = {
 
 function displayQuestion(state){
   //do we want to display the current score anywhere?
-  $('#splash').addClass("hidden");
-  $('#main').removeClass("hidden");
+  $('#splash').hide();
+  $('#main').show();
   var responses = state.questions[state.qIndicator].answers.map(function (answer, index){
     return ('<li> <button id="answer'+ index +'" class="answerBtn ">'+ answer +'</button></li>');
   });
@@ -47,6 +47,8 @@ function displayQuestion(state){
 };
 
 function eventHandlers(){
+  $('#main').hide();
+  $('#end').hide();
   $('#begin').click(function(event){
       displayQuestion(state);
   });
@@ -54,8 +56,8 @@ function eventHandlers(){
   $('#next-button').click(function(event){
       state.qIndicator += 1;
       if (state.questions[state.qIndicator] == undefined){
-        $('#main').addClass("hidden");
-        $('#end').removeClass("hidden");
+        $('#main').hide();
+        $('#end').show();
         $('#correctCount').html(state.score);
         $('#totalCount').html(state.questions.length);
       } else {
@@ -78,8 +80,8 @@ function eventHandlers(){
   });
 
   $('#goToStart').click(function(event){
-    $('#splash').removeClass("hidden");
-    $('#end').addClass("hidden");
+    $('#splash').show();
+    $('#end').hide();
     state.qIndicator = 0;
     state.score = 0;
     state.answered = false;
