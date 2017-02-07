@@ -20,7 +20,6 @@ var state = {
     qIndicator : 0,
     progTracker : [],
     answered: false, //We may not need this based on how we've solved the problem
-
 }
 
 function displayQuestion(state){
@@ -33,7 +32,6 @@ function displayQuestion(state){
   $('#question-number').html(state.qIndicator+1);
   $('#question-text').html(state.questions[state.qIndicator].qText);
   $('#responses').html(responses.join(""));
-  //console.log(state.progTracker[state.qIndicator]);
   if (state.answered){
     if (state.progTracker[state.qIndicator]){
       $('#isCorrect').html("Correct!");
@@ -41,7 +39,6 @@ function displayQuestion(state){
       $('#isCorrect').html("Incorrect");
     };
   };
-  //console.log(state.progTracker);
 };
 
 function eventHandlers(){
@@ -50,7 +47,6 @@ function eventHandlers(){
   });
   $('#next-button').click(function(event){
       state.qIndicator += 1;
-      //console.log(state.questions[state.qIndicator]);
       if (state.questions[state.qIndicator] == undefined){
         $('#main').addClass("hidden");
         $('#end').removeClass("hidden");
@@ -65,8 +61,6 @@ function eventHandlers(){
   $('#responses').on('click', '.answerBtn', function(event){
     state.answered = true;
     var correctAns = 'answer' + state.questions[state.qIndicator].correct
-//        console.log(correctAns);
-//        console.log($(this)[0].id);
     state.progTracker.push(correctAns === $(this)[0].id);
     if (correctAns === $(this)[0].id){
       state.score ++;
