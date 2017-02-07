@@ -19,7 +19,7 @@ var state = {
     score: 0,
     qIndicator : 0,
     progTracker : [],
-    answered: false,
+    answered: false, //We may not need this based on how we've solved the problem
 
 }
 
@@ -57,7 +57,6 @@ function eventHandlers(){
         $('#correctCount').html(state.score);
         $('#totalCount').html(state.questions.length);
       } else {
-//Also need to toggle state.answered back to false before displaying the next question
       $("#next-button").prop('disabled', true);
       $('#isCorrect').html("");
       displayQuestion(state);
@@ -86,6 +85,6 @@ function eventHandlers(){
     $('#isCorrect').html("");
   });
 };
-
+state.answered
 
 $(eventHandlers);
