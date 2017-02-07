@@ -1,6 +1,6 @@
 
 var state = {
-    questions: [//Let's add explanation text to follow each user answer.
+    questions: [
       {qText: "Which is considered an average credit score on the FICO scale?",
       answers: ["400", "630", "720", "1440"],
       correct: 1,
@@ -46,10 +46,19 @@ function displayQuestion(state){
   };
 };
 
+function displayTracker(state){
+  var trackerArr = state.questions.map(function (question, index){
+    return ('<li>'+ (index+1) +'</li>');
+  });
+  $('#tracker > ul').html(trackerArr.join(""));
+  $('#tracker').show();
+}
+
 function eventHandlers(){
   $('#main').hide();
   $('#end').hide();
   $('#begin').click(function(event){
+      displayTracker(state);
       displayQuestion(state);
   });
 
@@ -57,6 +66,7 @@ function eventHandlers(){
       state.qIndicator += 1;
       if (state.questions[state.qIndicator] == undefined){
         $('#main').hide();
+        $('#tracker').hide();
         $('#end').show();
         $('#correctCount').html(state.score);
         $('#totalCount').html(state.questions.length);
