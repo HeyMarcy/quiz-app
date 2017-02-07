@@ -1,19 +1,19 @@
 
 var state = {
     questions: [
-        {qText: "1. Which is considered an average credit score on the FICO scale?",
+        {qText: "Which is considered an average credit score on the FICO scale?",
         answers: ["400", "630", "720", "1440"],
         correct: 1},
-        {qText: "2. In order to avoid a penalty tax, distributions from an IRA must begin the year in which you attain the age of:",
+        {qText: "In order to avoid a penalty tax, distributions from an IRA must begin the year in which you attain the age of:",
         answers: ["55", "59 1/2", "65", "70 1/2"],
         correct: 3},
-        {qText: "3. If you check your credit reports once a year, how much will that typically cost?",
+        {qText: "If you check your credit reports once a year, how much will that typically cost?",
         answers: ["$90", "$0", "$30", "$60"],
         correct: 1},
-        {qText: "4. When do you pay taxes on the money you put into a traditional 401(k)?",
+        {qText: "When do you pay taxes on the money you put into a traditional 401(k)?",
         answers: ["When you withdraw the money", "Never, if you wait until retirement", "When you earn the money", "Every year, by April 15"],
         correct: 0},
-        {qText: "5. What is the biggest cause of personal bankruptcy in the United States?",
+        {qText: "What is the biggest cause of personal bankruptcy in the United States?",
         answers: ["Job loss", "Medical bills", "Divorce", "Failure to stick to a budget"],
         correct: 1}],
     score: 0,
@@ -24,6 +24,7 @@ var state = {
 }
 
 function displayQuestion(state){
+  //do we want to display the current score anywhere?
   $('#splash').addClass("hidden");
   $('#main').removeClass("hidden");
   var responses = state.questions[state.qIndicator].answers.map(function (answer, index){
@@ -32,9 +33,15 @@ function displayQuestion(state){
   $('#question-number').html(state.qIndicator+1);
   $('#question-text').html(state.questions[state.qIndicator].qText);
   $('#responses').html(responses.join(""));
-    if (state.answered){
-        $("#isCorrect").html(state.progTracker[state.qIndicator]); 
+  //console.log(state.progTracker[state.qIndicator]);
+  if (state.answered){
+    if (state.progTracker[state.qIndicator]){
+      $('#isCorrect').html("Correct!");
+    } else if (state.progTracker[state.qIndicator] == false){
+      $('#isCorrect').html("Incorrect");
     };
+  };
+  console.log(state.progTracker);
 };
 
 function eventHandlers(){
@@ -43,16 +50,24 @@ function eventHandlers(){
   });
   $('#next-button').click(function(event){
       state.qIndicator += 1;
+//We should add an if statement here to display the final page
+//  if state.questions[state.qIndicator] is undefined (after the last question has been answered)
+//Also need to toggle state.answered back to false before displaying the next question
+      $("#next-button").prop('disabled', true);
+      $('#isCorrect').html("");
       displayQuestion(state);
   });
-    $('#responses').on('click', '.answerBtn', function(event){
-        state.answered = true;
-        var correctAns = 'answer' + state.questions[state.qIndicator].correct
+  $('#responses').on('click', '.answerBtn', function(event){
+    state.answered = true;
+    var correctAns = 'answer' + state.questions[state.qIndicator].correct
 //        console.log(correctAns);
 //        console.log($(this)[0].id);
-        state.progTracker.push(correctAns === $(this)[0].id);
-         $("#next-button").removeClass('disabled'); 
-    })  
+    state.progTracker.push(correctAns === $(this)[0].id);
+    displayQuestion(state);
+    $('.answerBtn').prop('disabled', true);
+//IF CORRECT, increment state.score by 1
+    $("#next-button").prop('disabled', false);
+  });
 };
 
 
