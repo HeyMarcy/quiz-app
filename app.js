@@ -46,7 +46,8 @@ function displayQuestion(state) {
         };
     } else {
         $('.answerBtn').prop('disabled', false);
-        $("#next-button").prop('disabled', true);  
+        $("#next-button").prop('disabled', true);
+        $('#isCorrect').html("");
     }
 };
     
@@ -99,10 +100,6 @@ function eventHandlers() {
       if (state.questions[state.qIndicator] == undefined) {
           state.pageStatus = "end";
       }
-      else {
-          $("#next-button").prop('disabled', true);
-          $('#isCorrect').html("");
-      };
       state.answered = false;
       display(state);
   });
@@ -111,13 +108,10 @@ function eventHandlers() {
     state.answered = true;
     var correctAns = 'answer' + state.questions[state.qIndicator].correct
     state.progTracker.push(correctAns === $(this)[0].id);
-
     if (correctAns === $(this)[0].id){
       state.score ++;
     };
-    display(state);
-
-      
+    display(state);  
   });
 
   $('#goToStart').click(function(event){
@@ -126,7 +120,6 @@ function eventHandlers() {
     state.score = 0;
     state.answered = false;
     state.progTracker = [];
-    $('#isCorrect').html("");
     display(state);
   });
 };
