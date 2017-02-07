@@ -54,6 +54,8 @@ function eventHandlers(){
       if (state.questions[state.qIndicator] == undefined){
         $('#main').addClass("hidden");
         $('#end').removeClass("hidden");
+        $('#correctCount').html(state.score);
+        $('#totalCount').html(state.questions.length);
       } else {
 //Also need to toggle state.answered back to false before displaying the next question
       $("#next-button").prop('disabled', true);
@@ -67,10 +69,21 @@ function eventHandlers(){
 //        console.log(correctAns);
 //        console.log($(this)[0].id);
     state.progTracker.push(correctAns === $(this)[0].id);
+    if (correctAns === $(this)[0].id){
+      state.score ++;
+    };
     displayQuestion(state);
     $('.answerBtn').prop('disabled', true);
-//IF CORRECT, increment state.score by 1
     $("#next-button").prop('disabled', false);
+  });
+  $('#goToStart').click(function(event){
+    $('#splash').removeClass("hidden");
+    $('#end').addClass("hidden");
+    state.qIndicator = 0;
+    state.score = 0;
+    state.answered = false;
+    state.progTracker = [];
+    $('#isCorrect').html("");
   });
 };
 
