@@ -36,22 +36,27 @@ function displayQuestion(state) {
     $('#question-text').html(state.questions[state.qIndicator].qText);
     $('#responses').html(responses.join(""));
     if (state.answered) {
+        $('.answerBtn').prop('disabled', true);
+        $("#next-button").prop('disabled', false);
         if (state.progTracker[state.qIndicator]) {
-            $('#isCorrect').html("Correct!");
+            $('#isCorrect').html("Correct!");;
         }
         else if (state.progTracker[state.qIndicator] == false) {
             $('#isCorrect').html("Incorrect");
         };
+    } else {
+        $('.answerBtn').prop('disabled', false);
+        $("#next-button").prop('disabled', true);  
     }
 };
     
 
-function displayTracker(state){
-  var trackerArr = state.questions.map(function (question, index){
-      var token = index+1;
-    return ('<li>'+ token +'</li>');
-  });
-  $('#tracker > ul').html(trackerArr.join(""));
+function displayTracker(state) {
+    var trackerArr = state.questions.map(function (question, index) {
+        var token = index + 1;
+        return ('<li>' + token + '</li>');
+    });
+    $('#tracker > ul').html(trackerArr.join(""));
 }
 
 function display(state){
@@ -77,6 +82,8 @@ function display(state){
             break;
     }
     displayTracker(state);
+    $('#correctCount').html(state.score);
+    $('#totalCount').html(state.questions.length);
 
 }
 
@@ -91,13 +98,12 @@ function eventHandlers() {
       state.qIndicator += 1;
       if (state.questions[state.qIndicator] == undefined) {
           state.pageStatus = "end";
-          $('#correctCount').html(state.score);
-          $('#totalCount').html(state.questions.length);
       }
       else {
           $("#next-button").prop('disabled', true);
           $('#isCorrect').html("");
       };
+      state.answered = false;
       display(state);
   });
 
@@ -110,8 +116,7 @@ function eventHandlers() {
       state.score ++;
     };
     display(state);
-    $('.answerBtn').prop('disabled', true);
-    $("#next-button").prop('disabled', false);
+
       
   });
 
