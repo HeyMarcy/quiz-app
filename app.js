@@ -25,80 +25,105 @@ var state = {
     qIndicator : 0,
     progTracker : [],
     answered: false, //We may not need this based on how we've solved the problem
+    pageStatus: "splash",  /// splash, main or end are the three possible screens
 }
 
-function displayQuestion(state){
-  //do we want to display the current score anywhere?
-  $('#splash').hide();
-  $('#main').show();
-  var responses = state.questions[state.qIndicator].answers.map(function (answer, index){
-    return ('<li> <button id="answer'+ index +'" class="answerBtn ">'+ answer +'</button></li>');
-  });
-  $('#question-number').html(state.qIndicator+1);
-  $('#question-text').html(state.questions[state.qIndicator].qText);
-  $('#responses').html(responses.join(""));
-  if (state.answered){
-    if (state.progTracker[state.qIndicator]){
-      $('#isCorrect').html("Correct!");
-    } else if (state.progTracker[state.qIndicator] == false){
-      $('#isCorrect').html("Incorrect");
-    };
-  };
+function displayQuestion(state) {
+    var responses = state.questions[state.qIndicator].answers.map(function (answer, index) {
+        return ('<li> <button id="answer' + index + '" class="answerBtn ">' + answer + '</button></li>');
+    });
+    $('#question-number').html(state.qIndicator + 1);
+    $('#question-text').html(state.questions[state.qIndicator].qText);
+    $('#responses').html(responses.join(""));
+    if (state.answered) {
+        if (state.progTracker[state.qIndicator]) {
+            $('#isCorrect').html("Correct!");
+        }
+        else if (state.progTracker[state.qIndicator] == false) {
+            $('#isCorrect').html("Incorrect");
+        };
+    }
 };
+    
 
 function displayTracker(state){
   var trackerArr = state.questions.map(function (question, index){
-    return ('<li>'+ (index+1) +'</li>');
+      var token = index+1;
+    return ('<li>'+ token +'</li>');
   });
   $('#tracker > ul').html(trackerArr.join(""));
-  $('#tracker').show();
 }
 
-function eventHandlers(){
-  $('#main').hide();
-  $('#end').hide();
-  $('#begin').click(function(event){
-      displayTracker(state);
-      displayQuestion(state);
-  });
+function display(state){
+    switch (state.pageStatus){
+        case "splash":
+            $('#splash').show();
+            $('#end').hide();
+            $('#main').hide();
+            $('#tracker').hide();
+            break;
+        case "main":
+            $('#splash').hide();
+            $('#end').hide();
+            $('#main').show();
+            $('#tracker').show();
+            displayQuestion(state);
+            break;
+        case "end":
+            $('#splash').hide();
+            $('#end').show();
+            $('#main').hide();
+            $('#tracker').show();
+            break;
+    }
+    displayTracker(state);
 
-  $('#next-button').click(function(event){
+}
+
+function eventHandlers() {
+    display(state);
+    $('#begin').click(function (event) {
+        state.pageStatus = "main";
+        display(state);
+    });
+
+  $('#next-button').click(function (event) {
       state.qIndicator += 1;
-      if (state.questions[state.qIndicator] == undefined){
-        $('#main').hide();
-        $('#tracker').hide();
-        $('#end').show();
-        $('#correctCount').html(state.score);
-        $('#totalCount').html(state.questions.length);
-      } else {
-      $("#next-button").prop('disabled', true);
-      $('#isCorrect').html("");
-      displayQuestion(state);
-    };
+      if (state.questions[state.qIndicator] == undefined) {
+          state.pageStatus = "end";
+          $('#correctCount').html(state.score);
+          $('#totalCount').html(state.questions.length);
+      }
+      else {
+          $("#next-button").prop('disabled', true);
+          $('#isCorrect').html("");
+      };
+      display(state);
   });
 
   $('#responses').on('click', '.answerBtn', function(event){
     state.answered = true;
     var correctAns = 'answer' + state.questions[state.qIndicator].correct
     state.progTracker.push(correctAns === $(this)[0].id);
+
     if (correctAns === $(this)[0].id){
       state.score ++;
     };
-    displayQuestion(state);
+    display(state);
     $('.answerBtn').prop('disabled', true);
     $("#next-button").prop('disabled', false);
+      
   });
 
   $('#goToStart').click(function(event){
-    $('#splash').show();
-    $('#end').hide();
+    state.pageStatus = "splash";
     state.qIndicator = 0;
     state.score = 0;
     state.answered = false;
     state.progTracker = [];
     $('#isCorrect').html("");
+    display(state);
   });
 };
-state.answered
 
 $(eventHandlers);
