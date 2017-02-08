@@ -39,10 +39,10 @@ function displayQuestion(state) {
         $('.answerBtn').prop('disabled', true);
         $("#next-button").prop('disabled', false);
         if (state.progTracker[state.qIndicator]) {
-            $('#isCorrect').html("Correct!");;
+            $('#isCorrect').html("Correct! " + state.questions[state.qIndicator].explanation);
         }
         else if (state.progTracker[state.qIndicator] == false) {
-            $('#isCorrect').html("Incorrect");
+            $('#isCorrect').html("Incorrect. " + state.questions[state.qIndicator].explanation);
         };
     } else {
         $('.answerBtn').prop('disabled', false);
@@ -81,7 +81,7 @@ function display(state){
             $('#splash').hide();
             $('#end').show();
             $('#main').hide();
-            $('#tracker').show();
+            $('#tracker').hide();
             break;
     }
     displayTracker(state);

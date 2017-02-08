@@ -6,35 +6,31 @@
     <meta charset="UTF-8">
     <title>Terry and Marcy's Financial Quiz</title>
     <link rel="stylesheet" href="quiz.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,800" rel="stylesheet"> </head>
 
 <body>
     <div id="splash">
-      <h1>Financial Literacy Quiz</h1>
-      <h4>Terry and Marcy have teamed up to test your financial literacy!</h4>
-      <button id="begin">Let's go!</button>
+        <h1>Financial Literacy Quiz</h1>
+        <h4>Terry and Marcy have teamed up to test your financial literacy!</h4>
+        <button id="begin">Let's go!</button>
     </div>
     <div id="tracker">
-     <h4>Question <span id="question-number"></span></h4>
-      <ul></ul>
+        <h4>Question <span id="question-number"></span></h4>
+        <ul></ul>
     </div>
     <div id="main">
-      
-      <h3 id="isCorrect"></h3>
-      <h3 id="question-text"></h3>
-      <ul id="responses"></ul>
-      <button id="next-button" disabled> NEXT </button>
-       <h4 id="isCorrect"></h4>
-
+        <h3 id="question-text"></h3>
+        <div class="isCorrectContainer">
+            <p id="isCorrect"></p>
+        </div>
+        <ul id="responses"></ul>
+        <button id="next-button" disabled> NEXT </button>
     </div>
     <div id="end">
-      <h1>Good Job!</h1>
-      <h4>You've answered <span id="correctCount"></span> correctly, out of <span id="totalCount"></span></h4>
-      <button id="goToStart">Play Again!</button>
+        <h1>Good Job!</h1>
+        <h4>You've answered <span id="correctCount"></span> correctly, out of <span id="totalCount"></span></h4>
+        <button id="goToStart">Play Again!</button>
     </div>
-
-
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="app.js"></script>
 </body>
