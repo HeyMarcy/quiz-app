@@ -30,7 +30,7 @@ var state = {
 
 function displayQuestion(state) {
     var responses = state.questions[state.qIndicator].answers.map(function (answer, index) {
-        return ('<li> <button id="answer' + index + '" class="answerBtn ">' + answer + '</button></li>');
+        return ('<button id="answer' + index + '" class="answerBtn ">' + answer + '</button>');
     });
     $('#question-number').html(state.qIndicator + 1);
     $('#question-text').html(state.questions[state.qIndicator].qText);
@@ -39,10 +39,10 @@ function displayQuestion(state) {
         $('.answerBtn').prop('disabled', true);
         $("#next-button").prop('disabled', false);
         if (state.progTracker[state.qIndicator]) {
-            $('#isCorrect').html("Correct! " + state.questions[state.qIndicator].explanation);
+            $('#isCorrect').html("<span style='color:#50954D;font-weight:700'> CORRECT!&nbsp;</span> " + state.questions[state.qIndicator].explanation);
         }
         else if (state.progTracker[state.qIndicator] == false) {
-            $('#isCorrect').html("Incorrect. " + state.questions[state.qIndicator].explanation);
+            $('#isCorrect').html("<span style='color:#FE5E52'> INCORRECT.</span> " + state.questions[state.qIndicator].explanation);
         };
     } else {
         $('.answerBtn').prop('disabled', false);

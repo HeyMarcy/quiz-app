@@ -6,7 +6,8 @@ body {
 }
 
 html {
-    background: #88686A;
+    /*    background: #88686A;*/
+    background: #826F75;
     /*        background: #554142;*/
     /*    background: #2E552C;*/
 }
@@ -90,6 +91,7 @@ i.fa-check-circle {
     background: rgba(255, 255, 255, 0.2);
     box-shadow: inset 0 1px 3px 0 rgba(105, 85, 87, 0.56);
 }
+
 #tracker h4 {
     color: #979B98;
     line-height: 3;
@@ -137,8 +139,6 @@ ul {
     margin: 3em auto;
 }
 
-
-
 #splash,
 #end {
     color: white;
@@ -167,27 +167,39 @@ ul {
     padding: 0 3em 3em;
 }
 
- h4 #isCorrect {
-    line-height: 2;  
+h4 #isCorrect {
+    line-height: 2;
 }
-
-
 
 .isCorrectContainer {
-    padding: 10px 0;
+    padding-top: 2em;
 }
 
-#responses li {
-    display: inline-block;
-    font-family: "Open Sans", Helvetica, sans-serif;
-    margin: 1em;
+#isCorrect {
+    font-weight: 400;
+    line-height: 1.6;
+    color: #555555;
 }
-#responses li button {
+
+#responses {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+#responses button {
+    display: inline-flex;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    margin: 0 1em;
+    border: 0;
+    color: white;
     border-radius: 8px;
     font-size: 1em;
     padding: 10px 20px 10px 20px;
-    background: rgba(73,143,226,0.66);   
+    background: #6D9EC7;
 }
-#responses li button:disabled {
+
+#responses button:disabled {
     display: none;
 }
