@@ -119,6 +119,7 @@ ul {
     background: #999999;
     text-decoration: none;
     color: #ccc;
+    display: none;
 }
 
 #begin,
